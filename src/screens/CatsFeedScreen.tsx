@@ -1,86 +1,87 @@
-/* eslint-disable react-native/no-unused-styles */
-/* eslint-disable camelcase */
+/* eslint-disable react-native/no-unused-styles /
+/ eslint-disable camelcase */
 import React from "react";
 import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  StatusBar,
-  View,
-  FlatList,
-  ScrollView,
-  Image,
+SafeAreaView,
+StyleSheet,
+Text,
+StatusBar,
+View,
+FlatList,
+ScrollView,
+Image,
 } from "react-native";
 import { Card } from "react-native-paper";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
-import { useCats } from "../hooks/useCats";
+import { useBoss } from "../hooks/useBoss";
 import { useNavigation } from "@react-navigation/native";
 import { Routes } from "../navigation/Routes";
 
 interface ItemProps {
-  name: string;
-  model: string;
-  url: string;
+name: string;
+id: string;
+description: string;
+image: string;
 }
-const navigation = useNavigation();
-const { isLoading, isError, data } = useCats();
 
 const Item = ({
-  name,
-  model,
-  url,
+name,
+id,
+description,
+image,
 }: ItemProps) => (
-  <Card style={styles.item}>
-    <Card.Title title={name} subtitle={model} />
-    <Card.Content>
-
-
-    </Card.Content>
-  </Card>
+<Card style={styles.item}>
+<Card.Content>
+<Text>Name: {name}</Text>
+<Text>ID: {id}</Text>
+<Text>Description: {description}</Text>
+<Image source={{ uri: image }} style={styles.image} />
+</Card.Content>
+</Card>
 );
 
-export const CatsFeedScreen = () => {
+export const BossFeedScreen = () => {
+const navigation = useNavigation();
+const bosses = useBoss();
+const bossesArray = Object.values(bosses);
+if (!bosses) {
+    return <Text>No bosses found!</Text>;
+  }
   
-  if (isLoading) {
-    return <Text>Loading ...</Text>;
-  }
-  if (isError) {
-    return <Text>Error !</Text>;
-  }
-
-  // var text = ({model}: ItemProps) => {model};
-  // text.replace(" ","");
-
   return (
     <SafeAreaView style={styles.safeContainer}>
       <FlatList
-        data={data.results}
+        data={bossesArray}
         renderItem={({ item }) => (
           <Item
             name={item.name}
-            model={item.model}
-            url={item.url}
+            id={item.id}
+            description={item.description}
+            image={item.image}
           />
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.id}
       />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    marginBottom: 20,
-  },
-  container: {
-    paddingHorizontal: 20,
-    marginTop: 20,
-  },
-  item: {
-    marginBottom: 20,
-  },
-  image: {},
-});
+safeContainer: {
+flex: 1,
+marginTop: StatusBar.currentHeight || 0,
+marginBottom: 20,
+},
+container: {
+paddingHorizontal: 20,
+marginTop: 20,
+},
+item: {
+marginBottom: 20,
+},
+image: {
+width: 200,
+height: 200,
+},
+});  
