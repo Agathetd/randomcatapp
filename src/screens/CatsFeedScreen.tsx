@@ -21,16 +21,15 @@ import { Routes } from "../navigation/Routes";
 interface ItemProps {
   url: string;
 }
-const navigation = useNavigation();
+
 
 const Item = ({
   url
 }: ItemProps) => (
   <Card style={styles.item}
   >
-    <Card.Title title="Cat" />
     <Card.Content>
-      <Image style={styles.image} source={{url}}
+      <Image style={styles.image} source={{uri: url}}/>
     </Card.Content>
   </Card>
 )
@@ -41,15 +40,13 @@ const Item = ({
 
 
 
-export default function StarshipFeedScreen() {
-  const url = useCats();
+export default function CatsFeedScreen() {
 
-  // var text = ({model}: ItemProps) => {model};
-  // text.replace(" ","");
-
+  const navigation = useNavigation();
+  
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Image source={{url}}></Image>
+      <Item url={url}> </Item>
     </SafeAreaView>
   );
 }
