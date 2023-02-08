@@ -17,10 +17,6 @@ export const TermsScreen = () => {
           <Appbar.Content title="Terms and Conditions" />
         </Appbar.Header>
         <View style={{ padding: 32 }}>
-        <Image
-            style={{ width: 250, height: 250 }}
-            source={{uri:`https://aws.random.cat/meow`}}
-            />
           <Text variant="bodyMedium" style={{ marginBottom: 24 }}>
             This Terms of Service, including all supplemental terms as amended
             from time to time, governs your use of the online game, service, or

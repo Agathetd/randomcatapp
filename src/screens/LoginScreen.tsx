@@ -35,14 +35,7 @@ export default function LoginScreen({navigation}: any) {
               </Button>
               <TouchableOpacity onPress={navigateToTerms}>
                 <Text style={styles.readterms}>Read Terms and conditions</Text>
-
-  
             </TouchableOpacity>
-    
-            <Image
-                style={{ width: 250, height: 250, marginVertical: 32 }}
-                source={{uri:"https://thecatapi.com/api/images/get?limit=100"}}
-            />
             </View>
           </View>
         </React.Fragment>

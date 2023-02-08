@@ -5,7 +5,7 @@ import LoginScreen from "../screens/LoginScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TermsScreen } from "../screens/TermsScreen";
 import { Routes } from "./Routes";
-import { CatsFeedScreen } from "../screens/CatsFeedScreen"
+import CatsFeedScreen from "../screens/CatsFeedScreen"
 
   const Stack = createNativeStackNavigator();
 
