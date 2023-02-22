@@ -1,5 +1,3 @@
-/* eslint-disable react-native/no-unused-styles */
-/* eslint-disable camelcase */
 import React from "react";
 import {
   SafeAreaView,
@@ -13,40 +11,43 @@ import {
 } from "react-native";
 import { Card } from "react-native-paper";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-
 import { useCats } from "../hooks/useCats";
 import { useNavigation } from "@react-navigation/native";
 import { Routes } from "../navigation/Routes";
 
-interface ItemProps {
+interface Cat {
+  id: string;
   url: string;
 }
 
-
-const Item = ({
-  url
-}: ItemProps) => (
-  <Card style={styles.item}
-  >
-    <Card.Content>
-      <Image style={styles.image} source={{uri: url}}/>
-    </Card.Content>
-  </Card>
-)
-
-
-
-
-
-
+const queryClient = new QueryClient();
 
 export default function CatsFeedScreen() {
-
   const navigation = useNavigation();
-  
+  const { data: cats } = useQuery<Cat[]>("cats", async () => {
+    const response = await fetch(
+      "https://api.thecatapi.com/v1/images/search?limit=10"
+    );
+    const data = await response.json();
+    return data.map((cat: any) => ({ id: cat.id, url: cat.url }));
+  });
+
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Item url={url}> </Item>
+      <QueryClientProvider client={queryClient}>
+        <FlatList
+          data={cats}
+          keyExtractor={(cat) => cat.id}
+          renderItem={({ item }) => (
+            <Card style={styles.card}>
+              <Card.Content>
+                <Image style={styles.image} source={{ uri: item.url }} />
+                <Text></Text>
+              </Card.Content>
+            </Card>
+          )}
+        />
+      </QueryClientProvider>
     </SafeAreaView>
   );
 }
@@ -57,12 +58,11 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
     marginBottom: 20,
   },
-  container: {
-    paddingHorizontal: 20,
-    marginTop: 20,
-  },
-  item: {
+  card: {
     marginBottom: 20,
   },
-  image: {},
+  image: {
+    width: 200,
+    height: 200,
+  },
 });

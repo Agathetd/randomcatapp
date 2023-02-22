@@ -1,23 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './src/screens/LoginScreen';
-import Navigator from './src/navigation/Navigator';
-import { ScreenContainer } from './src/screens/ScreenContainer';
+import React from "react";
 import { NetworkProvider } from "react-native-offline";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Navigator from "./src/navigation/Navigator";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <NetworkProvider>
-        <Navigator></Navigator>
+    <QueryClientProvider client={queryClient}>
+      <NetworkProvider>
+        <Navigator />
       </NetworkProvider>
+    </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
