@@ -1,6 +1,6 @@
 # Duriez Adrien LP DIM APP
 
-#randomcatapp
+# randomcatapp
 
 
 -Install yarn and expo if you don't have installed it yet
