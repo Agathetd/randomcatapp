@@ -23,7 +23,7 @@ export default function LoginScreen({navigation}: any) {
     
             <View style={styles.container}>
               <TextInput label="Email" placeholder="Enter your adress mail" />
-              <TextInput placeholder="Password" />
+              <TextInput secureTextEntry={true} placeholder="Password" />
 
     
               <Button

@@ -29,7 +29,7 @@ export default function CatsFeedScreen() {
       "https://api.thecatapi.com/v1/images/search?limit=10"
     );
     const data = await response.json();
-    return data.map((cat: any) => ({ url: cat.url }));
+    return data.map((cat: any, index: number) => ({ id: index.toString(), url: cat.url }));
   });
 
   return (
@@ -39,7 +39,7 @@ export default function CatsFeedScreen() {
           data={cats}
           keyExtractor={(cat) => cat.id}
           renderItem={({ item }) => (
-            <Card style={styles.card}>
+            <Card style={styles.card} key={item.id}>
               <Card.Content>
                 <Image style={styles.image} source={{ uri: item.url }} />
               </Card.Content>
